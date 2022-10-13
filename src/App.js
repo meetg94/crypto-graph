@@ -17,7 +17,7 @@ function App() {
      return (
               <li>
                 {coin.id}
-                </li>
+              </li>
      )
    })
   return (
