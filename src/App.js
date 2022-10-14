@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom';
+
+import Navbar from './Components/Navbar'
 
 function App() {
 
@@ -16,14 +19,16 @@ function App() {
   const cryptoList = data.map((coin) => {
      return (
               <li>
-                {coin.id}
+                {coin.id} {coin.market_cap}
               </li>
      )
    })
   return (
     <div className="App">
+      <Navbar />
       <p>Crypto Chart</p>
       {cryptoList}
+      
     </div>
   );
 }
