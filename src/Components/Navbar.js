@@ -7,8 +7,9 @@ import Contact from './Pages/Contact'
 function Navbar() {
   return (
     <div className='navbar'>
-        <Link to="/about">About</Link> {" "}
-        <Link to="/contact">Contact</Link>
+        <Link to="/about">About</Link> | {" "}
+        <Link to="/contact">Contact</Link> | {" "}
+        <Link to="/home">Home</Link>
     </div>
   )
 }
