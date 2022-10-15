@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,13 +9,28 @@ body {
 }
 
 .navbar {
-  width: 100%;
-  height: 50px;
+  height: 60px;
   margin: auto 0;
+  align-items: center;
   background-color: gray;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
+
+.navbar-leftside {
+  padding-right: 40px;
+}
+
+.navbar-logoside {
+  padding-left: 40px;
+  display: flex;
+  gap: 10px;
+}
+
+h3 {
+  padding: 0;
+}
+
 
 .about-section {
   padding: 10px;
@@ -24,3 +38,18 @@ body {
 
 }
 
+.logo-class {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 1px green;
+}
+
+.aws-btn {
+  --button-anchor-color: #95d44a;
+  --button-anchor-color-dark: #52a934;
+  --button-anchor-color-light: #3f8228;
+  --button-anchor-color-hover: #89cf35;
+  --button-anchor-border: 2px solid #5bbd3a;
+
+}
