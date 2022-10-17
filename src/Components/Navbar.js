@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import About from './Pages/About'
 import Contact from './Pages/Contact'
-import logo from '../logo.jpg'
+import logo from '../logo.png'
 import "react-awesome-button/dist/styles.css";
 
 
