@@ -6,7 +6,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function ShowTable({ data}) {
+function ShowTable({ data, setId }) {
+
+  const handleClick = (coin_id) => {
+
+    const baseUrl = `https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=usd&days=1`
+    console.log(coin_id)
+  }
 
   return (
     <div>
@@ -23,13 +29,14 @@ function ShowTable({ data}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((coin) => {
+            {data.map((coin, i) => {
             return (
-                <TableRow 
-                    key={coin.id}
+                <TableRow
+                    coin_id = {coin.id}
+                    key={i}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">{coin.market_cap_rank}.</TableCell>
-                    <TableCell component="th" scope="row"><button>{coin.name}</button></TableCell>
+                    <TableCell component="th" scope="row"><button onClick={() => console.log(coin.id)}>{coin.name}</button></TableCell>
                     <TableCell component="th" scope="row">{coin.symbol.toUpperCase()}</TableCell>
                     <TableCell align="right" scope="row">${coin.current_price.toLocaleString("en-US")}</TableCell>
                     <TableCell align="right" scope="row" style={{color: coin.price_change_percentage_24h < 0 ? "red" : "green"}}>
