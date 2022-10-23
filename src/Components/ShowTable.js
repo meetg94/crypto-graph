@@ -8,17 +8,21 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { Line } from "react-chartjs-2";
+import CryptoChart from './CryptoChart';
+import { click } from '@testing-library/user-event/dist/click';
 
 function ShowTable({ data, setId }) {
 
+  const [clicked, setClicked] = useState(true)
+  const [chartData, setChartData] = useState([]) 
+
   const handleClick = (coin_id) => {
 
-    const baseUrl = `https://api.coingecnko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=1`
-    console.log(coin_id)
-
+    setClicked(!clicked)
+    const baseUrl = `https://api.coingecko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=7`
     axios.get(baseUrl)
       .then(response => {
-        console.log(response.data)
+        setChartData(response.data.prices)
       })
   }
 
@@ -55,6 +59,13 @@ function ShowTable({ data, setId }) {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        {clicked? (
+          <CryptoChart chartData={chartData} />
+        ) : (
+          null
+        )}
+      </div>
     </div>
   )
 }
