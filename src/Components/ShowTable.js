@@ -10,15 +10,17 @@ import axios from 'axios';
 import { Line } from "react-chartjs-2";
 import CryptoChart from './CryptoChart';
 import { click } from '@testing-library/user-event/dist/click';
+import { Link } from "react-router-dom";
+
+
 
 function ShowTable({ data, setId }) {
 
-  const [clicked, setClicked] = useState(true)
+  const [clicked, setClicked] = useState(false)
   const [chartData, setChartData] = useState([]) 
 
   const handleClick = (coin_id) => {
 
-    setClicked(!clicked)
     const baseUrl = `https://api.coingecko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=7`
     axios.get(baseUrl)
       .then(response => {
@@ -48,7 +50,13 @@ function ShowTable({ data, setId }) {
                     key={i}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">{coin.market_cap_rank}.</TableCell>
-                    <TableCell component="th" scope="row"><button onClick={() => {handleClick(coin.id)}}>{coin.name}</button></TableCell>
+                    <TableCell component="th" scope="row"><Link to="/CryptoChart/{coin_id}" state={{ from: "chartData"}}><button 
+                                                                                onClick={() => { handleClick(coin.id)
+                                                                                  setClicked(true)}}
+                                                                                  >{coin.name}
+                                                                              </button>
+                                                          </Link>
+                    </TableCell>
                     <TableCell component="th" scope="row">{coin.symbol.toUpperCase()}</TableCell>
                     <TableCell align="right" scope="row">${coin.current_price.toLocaleString("en-US")}</TableCell>
                     <TableCell align="right" scope="row" style={{color: coin.price_change_percentage_24h < 0 ? "red" : "green"}}>
