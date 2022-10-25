@@ -10,9 +10,7 @@ import axios from 'axios';
 import { Line } from "react-chartjs-2";
 import CryptoChart from './CryptoChart';
 import { click } from '@testing-library/user-event/dist/click';
-import { Link } from "react-router-dom";
-
-
+import { Routes, Route, Link } from "react-router-dom";
 
 function ShowTable({ data, setId }) {
 
@@ -50,7 +48,7 @@ function ShowTable({ data, setId }) {
                     key={i}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">{coin.market_cap_rank}.</TableCell>
-                    <TableCell component="th" scope="row"><Link to="/CryptoChart/{coin_id}" state={{ from: "chartData"}}><button 
+                    <TableCell component="th" scope="row"><Link to={`/{coin.id}`} state={{ from: "chartData"}}><button 
                                                                                 onClick={() => { handleClick(coin.id)
                                                                                   setClicked(true)}}
                                                                                   >{coin.name}
@@ -67,13 +65,10 @@ function ShowTable({ data, setId }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
-        {clicked? (
-          <CryptoChart chartData={chartData} />
-        ) : (
-          null
-        )}
-      </div>
+      <Routes> 
+        <Route />
+        <Route path="/:coin_id" element={<CryptoChart />} />
+      </Routes>
     </div>
   )
 }

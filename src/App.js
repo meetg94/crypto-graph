@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useParams, Routes, Route } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,8 +13,11 @@ import Home from './Components/Pages/Home'
 import About from './Components/Pages/About'
 import Contact from './Components/Pages/Contact'
 import ShowTable from './Components/ShowTable'
+import CryptoChart from './Components/CryptoChart';
 
 function App() {
+
+  let { coinId } = useParams()
 
   // const [data, setData] = useState([])
 
@@ -32,6 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/:coinId" element={<CryptoChart/>} />
       </Routes>      
     </div>
   );
