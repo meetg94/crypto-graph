@@ -53,3 +53,7 @@ h3 {
   --button-anchor-border: 2px solid #5bbd3a;
 
 }
+
+.table-container {
+  text-align: left;
+}

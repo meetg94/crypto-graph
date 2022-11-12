@@ -55,11 +55,31 @@ function CryptoChart() {
     
     const coinChartData = coinData.map(value => ({ x: value[0], y: value[1].toFixed(2) }))
 
-    //const consoleCoinData = console.log(coinData.prices)
-    const consoleChartData = console.log(coinChartData)
+    const tooltipLine = {
+        id: 'tooltipLine',
+        berforeDraw: chart => {
+            const ctx = chart.ctx
+            if (chart.tooltip._active && chart.tooltip._active.length) {
+                console.log(chart)
+            }
+        }
+    }
 
     const options = {
-        responsive: true
+        responsive: true,
+        scales: {
+            x: {
+                ticks: {
+                    color: 'black'
+                }
+            },
+            y: {
+                ticks: {
+                    color: 'black'
+                }
+            }
+        },
+        plugins: [tooltipLine]
     }
 
     const data = {
@@ -68,16 +88,15 @@ function CryptoChart() {
             {
                 fill: true,
                 data: coinChartData.map(val => val.y),
-                borderColor: 'rgb(200, 162, 235)',
+                borderColor: 'rgb(0,100, 300)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             }
-        ]
+        ],
     }
 
   return (
     <div>
-        <Line options={options} data={data} />
-        {consoleChartData}
+        <Line options={options} data={data}/>
     </div>
   )
 }
