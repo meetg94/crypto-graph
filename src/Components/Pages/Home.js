@@ -5,7 +5,6 @@ import ShowTable from '../ShowTable';
 function Home() {
 
   const [data, setData] = useState([])
-  const [id, setId] = useState([])
 
   useEffect(() => {
     axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50")
@@ -19,7 +18,6 @@ function Home() {
     <div>
       <ShowTable 
         data={data}
-        setId={setId}
           />
     </div>
   )

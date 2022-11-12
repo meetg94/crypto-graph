@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/:coinId" element={<CryptoChart/>} />
+        <Route path="/coin/:id" element={<CryptoChart/>} />
       </Routes>      
     </div>
   );

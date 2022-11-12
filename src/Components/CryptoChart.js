@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react'
+
 import moment from 'moment'
 import Skeleton from 'react-loading-skeleton'
+import { useParams } from 'react-router-dom'
 import { Line } from 'react-chartjs-2'
 import { 
     Chart as ChartJS, 
@@ -8,11 +11,11 @@ import {
     PointElement,
     LineElement,
     Title, 
-    ToolTip, 
     Filler,
     Legend,
     Tooltip,
     } from 'chart.js'
+import axios from 'axios'
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -24,25 +27,43 @@ ChartJS.register(
     Legend
 )
 
-function CryptoChart({ chartData }) {
+function CryptoChart() {
 
-    // if (!chartData) {
-    //     return (
-    //         <div>
-    //             <Skeleton />
-    //         </div>
-    //     )
-    // }
+    const { id } = useParams()
 
-    const coinChartData = chartData.map(value => ({ x: value[0], y: value[1].toFixed(2)}))
-    const consoleCoinChartData = console.log(coinChartData)
+    const [coinData, setCoinData] = useState([])
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data } = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`)
+                setCoinData(data.prices)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        fetch()
+    }, [])
+
+    if (!coinData) {
+        return (
+            <div>
+                <Skeleton />
+            </div>
+        )
+    }
+    
+    const coinChartData = coinData.map(value => ({ x: value[0], y: value[1].toFixed(2) }))
+
+    //const consoleCoinData = console.log(coinData.prices)
+    const consoleChartData = console.log(coinChartData)
 
     const options = {
         responsive: true
     }
 
     const data = {
-        labels: coinChartData.map(value => moment(value.x).format("MMM Do YY")),
+        labels: coinChartData.map(value => moment(value.x).format("MMM DD")),
         datasets: [
             {
                 fill: true,
@@ -55,8 +76,8 @@ function CryptoChart({ chartData }) {
 
   return (
     <div>
-        <Line option={options} data={data} />
-        {consoleCoinChartData}
+        <Line options={options} data={data} />
+        {consoleChartData}
     </div>
   )
 }
