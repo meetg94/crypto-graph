@@ -57,3 +57,14 @@ h3 {
 .table-container {
   text-align: left;
 }
+
+.about-container {
+  align-items: center;
+  margin: auto;
+  width: 50%;
+  padding: 0;
+}
+
+.card-container {
+  margin: 0 auto;
+}
