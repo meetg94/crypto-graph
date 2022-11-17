@@ -3,31 +3,14 @@ import { useState, useEffect } from 'react'
 import moment from 'moment'
 import Skeleton from 'react-loading-skeleton'
 import { useParams } from 'react-router-dom'
-import { Line } from 'react-chartjs-2'
-import { 
-    Chart as ChartJS, 
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title, 
-    Filler,
-    Legend,
-    Tooltip,
-    } from 'chart.js'
+import { Plugin, Line } from 'react-chartjs-2'
+import { Chart as ChartJS, Filler } from "chart.js/auto";
+
 import axios from 'axios'
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Filler,
-    Legend
-)
+
 
 function CryptoChart() {
+
 
     const { id } = useParams()
 
@@ -55,16 +38,6 @@ function CryptoChart() {
     
     const coinChartData = coinData.map(value => ({ x: value[0], y: value[1].toFixed(2) }))
 
-    const tooltipLine = {
-        id: 'tooltipLine',
-        berforeDraw: chart => {
-            const ctx = chart.ctx
-            if (chart.tooltip._active && chart.tooltip._active.length) {
-                console.log(chart)
-            }
-        }
-    }
-
     const options = {
         responsive: true,
         scales: {
@@ -79,7 +52,19 @@ function CryptoChart() {
                 }
             }
         },
-        plugins: [tooltipLine]
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            }
+        },
+        hover: {
+            mode: 'point',
+            intersect: false
+        },
     }
 
     const data = {
@@ -90,13 +75,39 @@ function CryptoChart() {
                 data: coinChartData.map(val => val.y),
                 borderColor: 'rgb(0,100, 300)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                pointRadius: 0,
             }
         ],
     }
 
+    let plugins = 
+        [{
+          afterDraw: chart => {
+            if (chart.tooltip?._active?.length) {
+              let x = chart.tooltip._active[0].element.x;
+              let yAxis = chart.scales.y;
+              let ctx = chart.ctx;
+              ctx.save();
+              ctx.beginPath();
+              ctx.setLineDash([5, 5]);
+              ctx.moveTo(x, yAxis.top);
+              ctx.lineTo(x, yAxis.bottom);
+              ctx.lineWidth = 1;
+              ctx.strokeStyle = 'rgba(0, 0, 255, 0.4)';
+              ctx.stroke();
+              ctx.restore(); 
+            }
+          }
+        }]
+      
+    
+
   return (
     <div>
-        <Line options={options} data={data}/>
+        <Line 
+        options={options} 
+        data={data} 
+        plugins = {plugins} />
     </div>
   )
 }

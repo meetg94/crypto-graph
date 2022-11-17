@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
 
 function ShowTable({ data }) {
-  
+
   return (
     <div className='table-container'>
       <Typography align='left'>
