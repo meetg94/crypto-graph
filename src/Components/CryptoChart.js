@@ -44,6 +44,9 @@ function CryptoChart() {
             x: {
                 ticks: {
                     color: 'black'
+                },
+                grid: {
+                    display: false
                 }
             },
             y: {
@@ -68,7 +71,11 @@ function CryptoChart() {
     }
 
     const data = {
-        labels: coinChartData.map(value => moment(value.x).format("MMM DD")),
+        labels: coinChartData.map((value) => {
+            return (
+                moment(value.x).format("MMM DD")
+            )}),
+        
         datasets: [
             {
                 fill: true,
@@ -89,21 +96,26 @@ function CryptoChart() {
               let ctx = chart.ctx;
               ctx.save();
               ctx.beginPath();
-              ctx.setLineDash([5, 5]);
+              ctx.setLineDash([]);
               ctx.moveTo(x, yAxis.top);
               ctx.lineTo(x, yAxis.bottom);
-              ctx.lineWidth = 1;
-              ctx.strokeStyle = 'rgba(0, 0, 255, 0.4)';
+              ctx.lineWidth = 2;
+              ctx.strokeStyle = 'rgba(0, 0, 255, 1)';
               ctx.stroke();
               ctx.restore(); 
             }
           }
+        },
+        {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                return data['datasets'][0]['data'][tooltipItem['index']] + "%"
+                }
+            }
         }]
-      
-    
 
   return (
-    <div>
+    <div style={{ height: '800px', width: '90%'}}>
         <Line 
         options={options} 
         data={data} 
