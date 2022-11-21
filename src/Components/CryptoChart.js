@@ -115,7 +115,7 @@ function CryptoChart() {
         }]
 
   return (
-    <div style={{ height: '800px', width: '90%'}}>
+    <div>
         <Line 
         options={options} 
         data={data} 
