@@ -10,13 +10,13 @@ function About() {
   return (
     <div className='about-container'>
       <>
-        <Card sx={{ maxWidth: 345 }} className='card-container'>
+        <Card sx={{ maxWidth: 400 }} className='card-container'>
           <CardActionArea>
             <CardMedia
               component="img"
-              height="250"
+              height="300"
               image={Logo}
-              alt="green iguana" />
+              alt="hippo drinking pop" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 About Us
@@ -30,7 +30,7 @@ function About() {
               In addition to tracking price, volume, and market capitalization, Coin Hippo tracks community growth,
               open-source development, major events and on-chain metrics.
               <br/>
-              It was founded in 2022 and is based in Canada. 
+              It was founded in 2022 by Meet Guleria and is based in Canada. 
               </Typography>
             </CardContent>
           </CardActionArea>

@@ -51,7 +51,10 @@ function CryptoChart() {
             },
             y: {
                 ticks: {
-                    color: 'black'
+                    color: 'black',
+                    callback: function (label) {
+                        return '$' + label
+                    }
                 }
             }
         },
@@ -109,7 +112,7 @@ function CryptoChart() {
         {
         callbacks: {
             label: function(tooltipItem, data) {
-                return data['datasets'][0]['data'][tooltipItem['index']] + "%"
+                return data['labels'][tooltipItem['index']] + ': $' + data['datasets'][0]['data'][tooltipItem]['index']
                 }
             }
         }]
